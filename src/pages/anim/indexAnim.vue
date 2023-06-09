@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <!-- <div class="box green"></div> -->
-    <div class="box">
-      <h2 class="text1">Scroll trigger</h2>
-      <h2 class="text2">This is my first one</h2>
-      <h2 class="text3">How is it?</h2>
+  <div class="spa"></div>
+  <div class="contenedor">
+    <div class="izq">
+      <div class="box played"></div>
+      <div class="box played"></div>
+      <div class="box played"></div>
     </div>
+    <div class="der"></div>
   </div>
+  <div class="spa"></div>
 </template>
 
 <script>
@@ -20,35 +22,58 @@ export default {
     return {};
   },
   mounted() {
-    this.scrollAnimation();
-
-    // gsap.to(".box", {
-    //   x: 200,
+    // const played = gsap.utils.toArray(".played");
+    // played.forEach((box) => {
+    //   gsap.to(box, {
+    //     x: 300,
+    //     scrollTrigger: {
+    //       trigger: box,
+    //       start: "top top",
+    //       toggleActions: "play none none reset",
+    //       pin: ".right",
+    //     },
+    //   });
     // });
-    //     gsap.to(".box", {
-    //   scrollTrigger: ".box", // start the animation when ".box" enters the viewport (once)
-    //   x: 500
-    // });
+    ScrollTrigger.create({
+      trigger: ".contenedor",
+      start: "top top",
+      end: "bottom bottom",
+      pin: ".right",
+      markers: true,
+    });
   },
   computed: {},
-  methods: {
-    scrollAnimation() {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: ".box",
-            start: "center center",
-            end: "bottom top",
-            markers: true,
-            scrub: true,
-            pin: true,
-          },
-        })
-        .from(".text1", { x: innerWidth * 1, opacity: 0 })
-        .from(".text2", { x: innerWidth * 1, opacity: 0 });
-    },
-  },
+  methods: {},
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.spa {
+  background: pink;
+  height: 100vh;
+  width: 100vw;
+}
+.contenedor {
+  display: flex;
+}
+
+.izq {
+  width: 50%;
+  height: 100vh;
+  background: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.der {
+  width: 50%;
+  height: 100vh;
+  background-color: black;
+}
+
+.box {
+  background-color: green;
+  width: 100px;
+  height: 100px;
+}
+</style>
